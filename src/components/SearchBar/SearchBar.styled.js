@@ -1,12 +1,12 @@
 import styled from "styled-components";
 
-export const Form = styled.form`
+export const FormSearch = styled.form`
   display: flex;
   justify-content: center;
 `;
 
 export const Input = styled.input`
-  width: 200px;
+  width: 300px;
   height: 30px;
 
   padding: 0 10px 0 10px;
@@ -14,7 +14,11 @@ export const Input = styled.input`
 
   border: 1px solid black;
   outline: none;
+  border-radius: 5px;
 
+  :hover {
+   border: 1px solid orangered;
+  }
 `;
 
 
@@ -29,15 +33,15 @@ export const ButtonSubmit = styled.button`
 
   font-size: 15px;
   font-family: inherit;
+  border: 1px solid black;
 
-  background-color: blue;
   color: black;
   border: none;
-
+  border-radius: 5px;
   cursor: pointer;
 
 
   :hover {
-    background-color: red;
-    color: white;
+   border: 1px solid orangered;
+  
   }`

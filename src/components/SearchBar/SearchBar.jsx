@@ -1,9 +1,9 @@
-import { Form, useNavigate } from "react-router-dom"
-import { ButtonSubmit, Input } from "./SearchBar.styled"
+
+import { ButtonSubmit, FormSearch, Input } from "./SearchBar.styled"
 
 
 const SearchBar = () => {
-  const navigate = useNavigate()
+  // const navigate = useNavigate()
 
 const handleSubmitForm = (event) => {
   event.preventDefault()
@@ -13,12 +13,13 @@ const handleSubmitForm = (event) => {
 
   return (
     <div>
-    <Form onSubmit={handleSubmitForm}>
+    <FormSearch onSubmit={handleSubmitForm}>
       <Input type="text" name="query" />
-    </Form>
-    <ButtonSubmit type="submit">
-
+      <ButtonSubmit type="submit">
+    Search
     </ButtonSubmit>
+    </FormSearch>
+
     </div>
 
   )

@@ -1,7 +1,15 @@
+
+// import { useEffect } from "react"
+
+import SearchBar from "components/SearchBar/SearchBar"
+
+
 const Movies = ()=> {
 
+
+
   return <div>
- Movies 
+  <SearchBar></SearchBar>
   </div>
 }
 export default Movies 
