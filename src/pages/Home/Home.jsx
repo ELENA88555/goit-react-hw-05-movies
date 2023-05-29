@@ -12,6 +12,7 @@ const Home = () => {
   
     getMovies().then(data => {
       setTrendMovies(data.results);
+
  
     });
   }, []);

@@ -1,29 +1,39 @@
-import { getMoviesById } from 'components/FetchApi/getMovies';
 import { useEffect, useState } from 'react';
 import { Link, Outlet, useLocation, useParams } from 'react-router-dom';
-import { ButtonBack, LinkBack, MoviePoster, Title } from './MovieDetails.styled';
+import {
+  AboutMovie,
+  ButtonBack,
+  LinkBack,
+  MovieInfo,
+  MoviePoster,
+  Title,
+  TitleList,
+  Wrap,
+} from './MovieDetails.styled';
 // import Cast from "components/Cast/Cast"
 // import Reviews from "components/Reviews/Reviews"
 import { MdArrowBack } from 'react-icons/md';
+import { getMoviesById } from 'components/FetchApi/getMovies';
+import NotFound from 'pages/NotFound';
 
 const MovieDetails = () => {
   const [detailsOfMovie, setDetailsOfMovie] = useState({});
 
   const location = useLocation();
-  const { id } = useParams();
+  const { movieId } = useParams();
 
   useEffect(() => {
-    getMoviesById(id).then(data => {
+    getMoviesById(movieId).then(data => {
       setDetailsOfMovie(data);
+      console.log(setDetailsOfMovie(data));
     });
-  }, [id]);
+  }, [movieId]);
 
   const { poster_path, overview, original_title, vote_average } =
     detailsOfMovie;
-
+  // genres,
   return (
     <main>
-      <Title>Additional information</Title>
       <ButtonBack type="button">
         <LinkBack>
           <MdArrowBack size={15} />
@@ -31,28 +41,47 @@ const MovieDetails = () => {
         </LinkBack>
       </ButtonBack>
 
+      <Wrap>
+        <MoviePoster>
+          <img
+            src={
+              poster_path ? (
+                `https://image.tmdb.org/t/p/w300${poster_path}`
+              ) : (
+                <NotFound />
+              )
+            }
+            alt={original_title}
+          />
+        </MoviePoster>
+
+        <AboutMovie>
+          <Title>{original_title}</Title>
+          <TitleList>User score: {vote_average * 10}%</TitleList>
+          <TitleList>Overview</TitleList>
+          <p>{overview} </p>
+          <TitleList>Genres</TitleList>
+          {/*           
+<div>
+  {genres.map(genre=> (<p id= {genre.id}>{genre.name}</p>))}
+
+</div> */}
+        </AboutMovie>
+      </Wrap>
+      <Title>Additional information</Title>
+      <Wrap>
+      
       <ul>
         <li>
           <Link to="cast">Cast</Link>
         </li>
         <li>
-          <Link to="revies"> Reviews</Link>
+          <Link to="reviews"> Reviews</Link>
         </li>
       </ul>
-      <MoviePoster>
-      <img           src={
-            poster_path
-              // ? `https://image.tmdb.org/t/p/w300${poster_path}`
-              // : `http://www.suryalaya.org/images/no_image.jpg`
-          } alt={original_title} />
+      </Wrap>
 
-      </MoviePoster>
-      <Title>{original_title}</Title>
-      <h3>User score: {vote_average}%</h3>
-      <h3>Overview</h3>
-      <p>{overview} </p>
-      <h3>Genres</h3>
-      
+
       <Outlet />
       {/* <Cast></Cast>
       <Reviews></Reviews> */}
