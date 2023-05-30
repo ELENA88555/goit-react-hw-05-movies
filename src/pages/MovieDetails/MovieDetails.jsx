@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
+
 import { Link, Outlet, useLocation, useParams } from 'react-router-dom';
 import {
   AboutMovie,
   ButtonBack,
   LinkBack,
-  MovieInfo,
   MoviePoster,
   Title,
   TitleList,
@@ -22,20 +22,21 @@ const MovieDetails = () => {
   const location = useLocation();
   const { movieId } = useParams();
 
+  const backLinkHref = location.state?.from ?? '/';
+
   useEffect(() => {
     getMoviesById(movieId).then(data => {
       setDetailsOfMovie(data);
-      console.log(setDetailsOfMovie(data));
     });
   }, [movieId]);
 
-  const { poster_path, overview, original_title, vote_average } =
+  const { poster_path, overview, original_title, vote_average, genres } =
     detailsOfMovie;
   // genres,
   return (
     <main>
       <ButtonBack type="button">
-        <LinkBack>
+        <LinkBack to {...backLinkHref}>
           <MdArrowBack size={15} />
           Go back
         </LinkBack>
@@ -61,30 +62,27 @@ const MovieDetails = () => {
           <TitleList>Overview</TitleList>
           <p>{overview} </p>
           <TitleList>Genres</TitleList>
-          {/*           
-<div>
-  {genres.map(genre=> (<p id= {genre.id}>{genre.name}</p>))}
 
-</div> */}
+          <ul>
+            {genres &&
+              genres.map(genre => <li key={genre.id}>{genre.name}</li>)}
+          </ul>
         </AboutMovie>
       </Wrap>
       <Title>Additional information</Title>
       <Wrap>
-      
-      <ul>
-        <li>
-          <Link to="cast">Cast</Link>
-        </li>
-        <li>
-          <Link to="reviews"> Reviews</Link>
-        </li>
-      </ul>
+        <ul>
+          <li>
+            <Link to="cast">Cast</Link>
+          </li>
+          <li>
+            <Link to="reviews"> Reviews</Link>
+          </li>
+        </ul>
       </Wrap>
 
-
       <Outlet />
-      {/* <Cast></Cast>
-      <Reviews></Reviews> */}
+
     </main>
   );
 };

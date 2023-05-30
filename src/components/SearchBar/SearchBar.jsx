@@ -1,28 +1,21 @@
+import { ButtonSubmit, FormSearch, Input } from './SearchBar.styled';
 
-import { ButtonSubmit, FormSearch, Input } from "./SearchBar.styled"
-
-
-const SearchBar = () => {
-  // const navigate = useNavigate()
-
-const handleSubmitForm = (event) => {
-  event.preventDefault()
-
-}
-
-
+const SearchBar = ({ query, onSubmit }) => {
   return (
     <div>
-    <FormSearch onSubmit={handleSubmitForm}>
-      <Input type="text" name="query" />
-      <ButtonSubmit type="submit">
-    Search
-    </ButtonSubmit>
-    </FormSearch>
-
+      <FormSearch onSubmit={onSubmit}>
+        <Input
+          type="text"
+          name="query"
+          autoComplete="off"
+          autoFocus
+          value={query}
+          // onChange={e => onChange(e.target.value)}
+        />
+        <ButtonSubmit type="submit">Search</ButtonSubmit>
+      </FormSearch>
     </div>
+  );
+};
 
-  )
-}
-
-export default SearchBar
+export default SearchBar;

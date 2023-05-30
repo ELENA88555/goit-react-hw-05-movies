@@ -47,4 +47,22 @@ export const getRevievsOfMovie = async (id)=> {
 
 }
 
-// 'https://api.themoviedb.org/3/movie/movie_id/reviews?language=en-US&page=1' 
+// 'https://api.themoviedb.org/3/movie/movie_id/reviews?language=en-US&page=1'
+
+
+export const getSesrchMovie = async (query)=> {
+  const url = 'https://api.themoviedb.org/3/search/movie?'
+  const response = await axios.get(`${url}api_key=${KEY}&query=${query}&include_adult=false&language=en-US&page=1`);
+  return response.data;
+
+
+}
+
+// export const searchMovies = async query => {
+//   const response = await axios.get(
+//     `search/movie?api_key=${API_KEY}&language=en-US&query=${query}&page=1&include_adult=false`
+//   );
+//   return response.data;
+// };
+
+// 'https://api.themoviedb.org/3/search/movie?include_adult=false&language=en-US&page=1'
