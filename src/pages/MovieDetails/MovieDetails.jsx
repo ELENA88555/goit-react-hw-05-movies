@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { Suspense, useEffect, useState } from 'react';
 
 import { Link, Outlet, useLocation, useParams } from 'react-router-dom';
 import {
@@ -10,8 +10,7 @@ import {
   TitleList,
   Wrap,
 } from './MovieDetails.styled';
-// import Cast from "components/Cast/Cast"
-// import Reviews from "components/Reviews/Reviews"
+
 import { MdArrowBack } from 'react-icons/md';
 import { getMoviesById } from 'components/FetchApi/getMovies';
 import NotFound from 'pages/NotFound';
@@ -32,11 +31,12 @@ const MovieDetails = () => {
 
   const { poster_path, overview, original_title, vote_average, genres } =
     detailsOfMovie;
-  // genres,
+
   return (
+    <Suspense>
     <main>
       <ButtonBack type="button">
-        <LinkBack to {...backLinkHref}>
+        <LinkBack to = {backLinkHref}>
           <MdArrowBack size={15} />
           Go back
         </LinkBack>
@@ -58,7 +58,7 @@ const MovieDetails = () => {
 
         <AboutMovie>
           <Title>{original_title}</Title>
-          <TitleList>User score: {vote_average * 10}%</TitleList>
+          <TitleList>User score: {Math.round(vote_average * 10)}%</TitleList>
           <TitleList>Overview</TitleList>
           <p>{overview} </p>
           <TitleList>Genres</TitleList>
@@ -84,6 +84,9 @@ const MovieDetails = () => {
       <Outlet />
 
     </main>
+
+    </Suspense>
+
   );
 };
 export default MovieDetails;

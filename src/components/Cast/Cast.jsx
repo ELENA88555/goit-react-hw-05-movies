@@ -13,6 +13,7 @@ const Cast = () => {
   }, [movieId]);
 
   return (
+    
     <main>
       <ListCasts>
         {castLists.map(castList => (
