@@ -57,12 +57,3 @@ export const getSesrchMovie = async (query)=> {
 
 
 }
-
-// export const searchMovies = async query => {
-//   const response = await axios.get(
-//     `search/movie?api_key=${API_KEY}&language=en-US&query=${query}&page=1&include_adult=false`
-//   );
-//   return response.data;
-// };
-
-// 'https://api.themoviedb.org/3/search/movie?include_adult=false&language=en-US&page=1'
