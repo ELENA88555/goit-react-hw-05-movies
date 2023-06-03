@@ -1,4 +1,4 @@
-import { getRevievsOfMovie } from 'components/FetchApi/getMovies';
+import { getRevievsOfMovie } from 'fetchApi/getMovies';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { ListReviews } from './Reviews.styled';

@@ -1,6 +1,6 @@
 import { ButtonSubmit, FormSearch, Input } from './SearchBar.styled';
 
-const SearchBar = ({onSubmit }) => {
+const SearchBar = ({onSubmit, value }) => {
   return (
     <div>
       <FormSearch onSubmit={onSubmit}>
@@ -9,7 +9,7 @@ const SearchBar = ({onSubmit }) => {
           name="query"
           autoComplete="off"
           autoFocus
-          // value={value}
+          value={value}
           // onChange={e => onChange(e.target.value)}
         />
         <ButtonSubmit type="submit">Search</ButtonSubmit>

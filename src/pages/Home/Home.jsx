@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { MainTitle, MovieList, LinkMovie } from './Home.styled';
-import {getMovies} from 'components/FetchApi/getMovies';
+import {getMovies} from 'fetchApi/getMovies';
 
 const Home = () => {
   const [trendMovies, setTrendMovies] = useState([]);

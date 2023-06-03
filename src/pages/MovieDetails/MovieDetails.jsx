@@ -12,8 +12,8 @@ import {
 } from './MovieDetails.styled';
 
 import { MdArrowBack } from 'react-icons/md';
-import { getMoviesById } from 'components/FetchApi/getMovies';
-import NotFound from 'pages/NotFound';
+import { getMoviesById } from 'fetchApi/getMovies';
+import Loader from 'components/Loader/Loader';
 
 const MovieDetails = () => {
   const [detailsOfMovie, setDetailsOfMovie] = useState({});
@@ -33,7 +33,7 @@ const MovieDetails = () => {
     detailsOfMovie;
 
   return (
-    <Suspense>
+    <Suspense fallback= {<Loader/>}>
     <main>
       <ButtonBack type="button">
         <LinkBack to = {backLinkHref}>
@@ -49,7 +49,7 @@ const MovieDetails = () => {
               poster_path ? (
                 `https://image.tmdb.org/t/p/w300${poster_path}`
               ) : (
-                <NotFound />
+                `https://gdr.one/simg/400`
               )
             }
             alt={original_title}

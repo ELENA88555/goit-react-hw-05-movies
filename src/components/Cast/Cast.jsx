@@ -1,8 +1,8 @@
-import { getCastOfMovie } from 'components/FetchApi/getMovies';
-
+import { getCastOfMovie } from 'fetchApi/getMovies';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { ListCasts } from './Cast.styled';
+
 
 const Cast = () => {
   const [castLists, setCastLists] = useState([]);
@@ -20,10 +20,16 @@ const Cast = () => {
           <li key={castList.id}>
             <img
               width={50}
-              src={
-                castList.profile_path && 
-                `https://image.tmdb.org/t/p/w200${castList.profile_path}`
-                
+              src=
+              // {
+              //   castList.profile_path &&
+              //   (`https://image.tmdb.org/t/p/w200${castList.profile_path}`)
+               
+              // }
+              {
+                castList.profile_path ? 
+                (`https://image.tmdb.org/t/p/w200${castList.profile_path}`)
+                : (`https://gdr.one/simg/125x145`)
               }
               alt={castList.name}
             />

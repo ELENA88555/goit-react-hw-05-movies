@@ -1,4 +1,4 @@
-import { getSesrchMovie } from 'components/FetchApi/getMovies';
+import { getSesrchMovie } from 'fetchApi/getMovies';
 import SearchBar from 'components/SearchBar/SearchBar';
 import { Suspense, useEffect, useState } from 'react';
 import { Link, useLocation, useSearchParams } from 'react-router-dom';
@@ -10,12 +10,21 @@ const Movies = () => {
 
   const query = searchParams.get('query') ?? '';
   const [queryMovies, setqueryMovies] = useState([]);
+  // const [error, setError] = useState(false);
 
   useEffect(() => {
     if (query === '') {
       return;
     }
-    getSesrchMovie(query).then(data => setqueryMovies(data.results));
+    getSesrchMovie(query).then(data =>
+      //  {
+      // if (data.success.false) {
+      //   setError(true);
+      //   return console.log('The resource you requested could not be found.');
+      // }   setError(false);
+      setqueryMovies(data.results)
+    
+    );
   }, [query]);
 
   const handleSubmitForm = event => {
@@ -31,8 +40,8 @@ const Movies = () => {
     <Suspense>
       <div>
         <SearchBar onSubmit={handleSubmitForm}></SearchBar>
-        <MoviesList>
-          {queryMovies.map(queryMovie => (
+      <MoviesList>
+          {queryMovies?.map(queryMovie => (
             <li key={queryMovie.id}>
               <Link to={`/movies/${queryMovie.id}`} state={{ from: location }}>
                 <p>{queryMovie.original_title || queryMovie.name}</p>
@@ -40,6 +49,7 @@ const Movies = () => {
             </li>
           ))}
         </MoviesList>
+
       </div>
     </Suspense>
   );
