@@ -17,14 +17,15 @@ const Movies = () => {
       return;
     }
     getSesrchMovie(query).then(data =>
-      //  {
+
+        setqueryMovies(data.results)
       // if (data.success.false) {
       //   setError(true);
       //   return console.log('The resource you requested could not be found.');
       // }   setError(false);
-      setqueryMovies(data.results)
+      // setqueryMovies(data.results)
     
-    );
+  )
   }, [query]);
 
   const handleSubmitForm = event => {
@@ -38,18 +39,38 @@ const Movies = () => {
 
   return (
     <Suspense>
+      {/* <div>
+        <SearchBar onSubmit={handleSubmitForm}></SearchBar>
+        {
+          error ? (<p>"The resource you requested could not be found."</p>)
+          : 
+          (
+            <MoviesList>
+            {queryMovies?.map(queryMovie => (
+              <li key={queryMovie.id}>
+                <Link to={`/movies/${queryMovie.id}`} state={{ from: location }}>
+                  <p>{queryMovie.original_title || queryMovie.name}</p>
+                </Link>
+              </li>
+            ))}
+          </MoviesList>
+          )
+        }
+
+
+      </div> */}
       <div>
         <SearchBar onSubmit={handleSubmitForm}></SearchBar>
-      <MoviesList>
-          {queryMovies?.map(queryMovie => (
-            <li key={queryMovie.id}>
-              <Link to={`/movies/${queryMovie.id}`} state={{ from: location }}>
-                <p>{queryMovie.original_title || queryMovie.name}</p>
-              </Link>
-            </li>
-          ))}
-        </MoviesList>
-
+         <MoviesList>
+            {queryMovies?.map(queryMovie => (
+              <li key={queryMovie.id}>
+                <Link to={`/movies/${queryMovie.id}`} state={{ from: location }}>
+                  <p>{queryMovie.original_title || queryMovie.name}</p>
+                </Link>
+              </li>
+            ))}
+          </MoviesList>
+   
       </div>
     </Suspense>
   );
