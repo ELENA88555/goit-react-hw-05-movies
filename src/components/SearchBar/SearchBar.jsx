@@ -1,17 +1,19 @@
 // import { useState } from 'react';
+// import { useSearchParams } from 'react-router-dom';
 import { ButtonSubmit, FormSearch, Input } from './SearchBar.styled';
+import { useState } from 'react';
 
-const SearchBar = ({handleSubmitForm, handleChangetForm, value}) => {
+const SearchBar = ({handleSubmitForm}) => {
 
-  // const [query, setQuery] = useState('');
+  const [value, setValue] = useState('');
 
-  // const handleChangetForm = (event)=> {
-  //   const inputValue = event.currentTarget.value
-  //    if (inputValue ==="") {
-  //      return console.log('NO RESULTS');
-  //    } setQuery( inputValue);
+  const handleChangetForm = (event)=> {
+    const inputValue = event.currentTarget.value
+     if (inputValue.trim() ==="") {
+       return console.log('NO RESULTS');
+     } setValue( inputValue);
  
-  //  };
+   };
 
 
   return (

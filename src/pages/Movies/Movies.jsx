@@ -36,14 +36,7 @@ const Movies = () => {
       });
   }, [query]);
 
-  const handleChangetForm = event => {
-    const inputValue = event.currentTarget.value;
-    if (inputValue === '') {
-      return setSearchParams({})
- 
-    }
-    setSearchParams({ query: inputValue });
-  };
+
 
   const handleSubmitForm = event => {
     event.preventDefault();
@@ -59,8 +52,8 @@ const Movies = () => {
       <div>
         <SearchBar
           onSubmit={handleSubmitForm}
-          handleChangetForm={handleChangetForm}
-          value={query}
+          // handleChangetForm={handleChangetForm}
+          // value={query}
         ></SearchBar>
 
         {error && <p>There is no movies with this request.</p>}
