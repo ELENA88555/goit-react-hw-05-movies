@@ -33,60 +33,56 @@ const MovieDetails = () => {
     detailsOfMovie;
 
   return (
-    <Suspense fallback= {<Loader/>}>
-    <main>
-      <ButtonBack type="button">
-        <LinkBack to = {backLinkHref}>
-          <MdArrowBack size={15} />
-          Go back
-        </LinkBack>
-      </ButtonBack>
+   
+      <main>
+        <ButtonBack type="button">
+          <LinkBack to={backLinkHref}>
+            <MdArrowBack size={15} />
+            Go back
+          </LinkBack>
+        </ButtonBack>
 
-      <Wrap>
-        <MoviePoster>
-          <img
-            src={
-              poster_path ? (
-                `https://image.tmdb.org/t/p/w300${poster_path}`
-              ) : (
-                `https://gdr.one/simg/400`
-              )
-            }
-            alt={original_title}
-          />
-        </MoviePoster>
+        <Wrap>
+          <MoviePoster>
+            <img
+              src={
+                poster_path
+                  ? `https://image.tmdb.org/t/p/w300${poster_path}`
+                  : `https://gdr.one/simg/400`
+              }
+              alt={original_title}
+            />
+          </MoviePoster>
 
-        <AboutMovie>
-          <Title>{original_title}</Title>
-          <TitleList>User score: {Math.round(vote_average * 10)}%</TitleList>
-          <TitleList>Overview</TitleList>
-          <p>{overview} </p>
-          <TitleList>Genres</TitleList>
+          <AboutMovie>
+            <Title>{original_title}</Title>
+            <TitleList>User score: {Math.round(vote_average * 10)}%</TitleList>
+            <TitleList>Overview</TitleList>
+            <p>{overview} </p>
+            <TitleList>Genres</TitleList>
 
+            <ul>
+              {genres &&
+                genres.map(genre => <li key={genre.id}>{genre.name}</li>)}
+            </ul>
+          </AboutMovie>
+        </Wrap>
+        <Title>Additional information</Title>
+        <Wrap>
           <ul>
-            {genres &&
-              genres.map(genre => <li key={genre.id}>{genre.name}</li>)}
+            <li>
+              <Link to="cast" state={{...location.state }}>Cast</Link>
+            </li>
+            <li>
+              <Link to="reviews" state={{ ...location.state }}> Reviews</Link>
+            </li>
           </ul>
-        </AboutMovie>
-      </Wrap>
-      <Title>Additional information</Title>
-      <Wrap>
-        <ul>
-          <li>
-            <Link to="cast">Cast</Link>
-          </li>
-          <li>
-            <Link to="reviews"> Reviews</Link>
-          </li>
-        </ul>
-      </Wrap>
-
-      <Outlet />
-
-    </main>
-
-    </Suspense>
-
+        </Wrap>
+        <Suspense fallback={<Loader />}>
+        <Outlet />
+        </Suspense>
+      </main>
+   
   );
 };
 export default MovieDetails;

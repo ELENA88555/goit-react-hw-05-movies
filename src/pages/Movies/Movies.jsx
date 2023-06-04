@@ -10,23 +10,40 @@ const Movies = () => {
 
   const query = searchParams.get('query') ?? '';
   const [queryMovies, setqueryMovies] = useState([]);
-  // const [error, setError] = useState(false);
+  const [error, setError] = useState(false);
 
   useEffect(() => {
     if (query === '') {
       return;
     }
-    getSesrchMovie(query).then(data =>
 
-        setqueryMovies(data.results)
-      // if (data.success.false) {
-      //   setError(true);
-      //   return console.log('The resource you requested could not be found.');
-      // }   setError(false);
-      // setqueryMovies(data.results)
-    
-  )
+    getSesrchMovie(query)
+      // .then(response => {
+      //   if (response.data.success.false) {
+      //     setError(true);
+      //     return alert('The resource you requested could not be found.');
+      //   }
+      //   setqueryMovies(response.results);
+      // }
+      // );
+      .then(data => {
+        if (!data.results.length === 0) {
+          setError(true);
+          return console.log('There is no movies with this request')
+        }
+        setqueryMovies(data.results);
+        setError(false);
+      });
   }, [query]);
+
+  const handleChangetForm = event => {
+    const inputValue = event.currentTarget.value;
+    if (inputValue === '') {
+      return setSearchParams({})
+ 
+    }
+    setSearchParams({ query: inputValue });
+  };
 
   const handleSubmitForm = event => {
     event.preventDefault();
@@ -39,8 +56,33 @@ const Movies = () => {
 
   return (
     <Suspense>
+      <div>
+        <SearchBar
+          onSubmit={handleSubmitForm}
+          handleChangetForm={handleChangetForm}
+          value={query}
+        ></SearchBar>
+
+        {error && <p>There is no movies with this request.</p>}
+
+        <MoviesList>
+          {queryMovies?.map(queryMovie => (
+            <li key={queryMovie.id}>
+              <Link to={`${queryMovie.id}`} state={{ from: location }}>
+                <p>{queryMovie.original_title || queryMovie.name}</p>
+              </Link>
+            </li>
+          ))}
+        </MoviesList>
+      </div>
       {/* <div>
-        <SearchBar onSubmit={handleSubmitForm}></SearchBar>
+                <SearchBar 
+         onSubmit={handleSubmitForm} 
+         handleChangetForm= {handleChangetForm}
+         value={query}
+         >
+          
+         </SearchBar>
         {
           error ? (<p>"The resource you requested could not be found."</p>)
           : 
@@ -59,20 +101,9 @@ const Movies = () => {
 
 
       </div> */}
-      <div>
-        <SearchBar onSubmit={handleSubmitForm}></SearchBar>
-         <MoviesList>
-            {queryMovies?.map(queryMovie => (
-              <li key={queryMovie.id}>
-                <Link to={`/movies/${queryMovie.id}`} state={{ from: location }}>
-                  <p>{queryMovie.original_title || queryMovie.name}</p>
-                </Link>
-              </li>
-            ))}
-          </MoviesList>
-   
-      </div>
     </Suspense>
   );
 };
 export default Movies;
+
+
