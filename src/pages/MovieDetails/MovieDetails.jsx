@@ -17,6 +17,8 @@ import Loader from 'components/Loader/Loader';
 
 const MovieDetails = () => {
   const [detailsOfMovie, setDetailsOfMovie] = useState({});
+  //  -------при null не ренд. сторінка-----------
+  // const [detailsOfMovie, setDetailsOfMovie] = useState(null);
   const [error, setError] = useState(null);
 
 
