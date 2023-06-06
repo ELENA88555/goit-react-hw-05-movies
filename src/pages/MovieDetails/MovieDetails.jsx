@@ -17,6 +17,8 @@ import Loader from 'components/Loader/Loader';
 
 const MovieDetails = () => {
   const [detailsOfMovie, setDetailsOfMovie] = useState({});
+  const [error, setError] = useState(null);
+
 
   const location = useLocation();
   const { movieId } = useParams();
@@ -32,6 +34,10 @@ const MovieDetails = () => {
   const { poster_path, overview, original_title, vote_average, genres } =
     detailsOfMovie;
 
+    if (!MovieDetails) {
+      return setError(true)
+    }
+
   return (
    
       <main>
@@ -41,17 +47,15 @@ const MovieDetails = () => {
             Go back
           </LinkBack>
         </ButtonBack>
-
-        <Wrap>
+      
+{MovieDetails &&      
+  <><Wrap>
           <MoviePoster>
             <img
-              src={
-                poster_path
-                  ? `https://image.tmdb.org/t/p/w300${poster_path}`
-                  : `https://gdr.one/simg/400`
-              }
-              alt={original_title}
-            />
+              src={poster_path
+                ? `https://image.tmdb.org/t/p/w300${poster_path}`
+                : `https://gdr.one/simg/400`}
+              alt={original_title} />
           </MoviePoster>
 
           <AboutMovie>
@@ -66,18 +70,19 @@ const MovieDetails = () => {
                 genres.map(genre => <li key={genre.id}>{genre.name}</li>)}
             </ul>
           </AboutMovie>
-        </Wrap>
-        <Title>Additional information</Title>
-        <Wrap>
-          <ul>
-            <li>
-              <Link to="cast" state={{...location.state }}>Cast</Link>
-            </li>
-            <li>
-              <Link to="reviews" state={{ ...location.state }}> Reviews</Link>
-            </li>
-          </ul>
-        </Wrap>
+        </Wrap><Title>Additional information</Title><Wrap>
+            <ul>
+              <li>
+                <Link to="cast" state={{ ...location.state }}>Cast</Link>
+              </li>
+              <li>
+                <Link to="reviews" state={{ ...location.state }}> Reviews</Link>
+              </li>
+            </ul>
+          </Wrap></>}
+
+
+        {error && <p>'The resource you requested could not be found.'</p>}
         <Suspense fallback={<Loader />}>
         <Outlet />
         </Suspense>
