@@ -4,10 +4,7 @@ import { Suspense, useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import MoviesList from 'components/MoviesList/MoviesList';
 
-
-
 const Movies = () => {
-
   const [searchParams, setSearchParams] = useSearchParams();
 
   const query = searchParams.get('query') ?? '';
@@ -18,30 +15,27 @@ const Movies = () => {
     if (query === '') {
       return;
     }
-   
-    getSesrchMovie(query)
-      .then(({results}) => {
-        
-        if (!results.length === 0) {
-          setError(true);
-          return console.log('There is no movies with this request');
+
+    getSesrchMovie(query).then(({ results }) => {
+      if (!results.length === 0) {
+        setError(true);
+        return console.log('There is no movies with this request');
+      }
+
+      const moviesArr = results?.map(
+        ({ id, original_title, poster_path, name }) => {
+          return {
+            id,
+            original_title,
+            poster_path,
+            name,
+          };
         }
+      );
 
-  const moviesArr = results?.map(({id, original_title, poster_path, name }) => {
-
-  return {
-    id,
-    original_title,
-    poster_path,
-    name
-  };
-
- 
-})
-
-        setqueryMovies(moviesArr);
-        setError(false);
-      });
+      setqueryMovies(moviesArr);
+      setError(false);
+    });
   }, [query]);
 
   const handleSubmitForm = event => {
@@ -59,11 +53,7 @@ const Movies = () => {
         <SearchBar onSubmit={handleSubmitForm}></SearchBar>
 
         {error && <p>There is no movies with this request.</p>}
-        <MoviesList
-         movies = {queryMovies}>
-        </MoviesList>
-
-
+        <MoviesList movies={queryMovies}></MoviesList>
       </div>
     </Suspense>
   );
