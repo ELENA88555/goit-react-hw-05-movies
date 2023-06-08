@@ -4,10 +4,10 @@ import { Suspense, useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import MoviesList from 'components/MoviesList/MoviesList';
 
-// import { MoviesList } from './Movies.styled';
+
 
 const Movies = () => {
-  // const location = useLocation();
+
   const [searchParams, setSearchParams] = useSearchParams();
 
   const query = searchParams.get('query') ?? '';
@@ -20,31 +20,23 @@ const Movies = () => {
     }
    
     getSesrchMovie(query)
-      // .then(response => {
-      //   if (response.data.success.false) {
-      //     setError(true);
-      //     return alert('The resource you requested could not be found.');
-      //   }
-      //   setqueryMovies(response.results);
-      // }
-      // );
       .then(({results}) => {
-        const moviesArr = []
+        
         if (!results.length === 0) {
           setError(true);
           return console.log('There is no movies with this request');
         }
 
-results?.map(({id, original_title, poster_path, name }) => {
+  const moviesArr = results?.map(({id, original_title, poster_path, name }) => {
 
-  const movie = {
+  return {
     id,
     original_title,
     poster_path,
     name
   };
 
-  return moviesArr.push(movie);
+ 
 })
 
         setqueryMovies(moviesArr);
@@ -71,15 +63,7 @@ results?.map(({id, original_title, poster_path, name }) => {
          movies = {queryMovies}>
         </MoviesList>
 
-        {/* <MoviesList>
-          {queryMovies?.map(queryMovie => (
-            <li key={queryMovie.id}>
-              <Link to={`${queryMovie.id}`} state={{ from: location }}>
-                <p>{queryMovie.original_title || queryMovie.name}</p>
-              </Link>
-            </li>
-          ))}
-        </MoviesList> */}
+
       </div>
     </Suspense>
   );

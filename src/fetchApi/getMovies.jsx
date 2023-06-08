@@ -9,15 +9,6 @@ export const getMovies = async () => {
 
   return response.data;
 
-  // const response =  fetch(`${BASE_URL}?api_key=${KEY}`)
-  // response
-  // .then(response => {
-  //   if (!response.ok) {
-  //     return Promise.reject(new Error('OOPS!'));
-  //   }
-  //   const data =  response.json()
-  //   return data
-  // })
 };
 
 
@@ -54,9 +45,7 @@ export const getRevievsOfMovie = async (id)=> {
 export const getSesrchMovie = async (query)=> {
   const url = 'https://api.themoviedb.org/3/search/movie?'
   const response = await axios.get(`${url}api_key=${KEY}&query=${query}&include_adult=false&language=en-US&page=1`);
-  // if (response.data.success.false){
-  //   return alert('The resource you requested could not be found.');
-  // }
+
   return response.data;
 
 

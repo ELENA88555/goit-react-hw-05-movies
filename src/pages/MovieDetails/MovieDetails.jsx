@@ -16,11 +16,8 @@ import { getMoviesById } from 'fetchApi/getMovies';
 import Loader from 'components/Loader/Loader';
 
 const MovieDetails = () => {
-  // const [detailsOfMovie, setDetailsOfMovie] = useState({});
+const [detailsOfMovie, setDetailsOfMovie] = useState(null);
 
-  const [detailsOfMovie, setDetailsOfMovie] = useState(null);
-
-  // const [error, setError] = useState(null);
 
   const location = useLocation();
   const { movieId } = useParams();
@@ -97,7 +94,7 @@ const MovieDetails = () => {
         </>
       )}
 
-      {/* {error && <p>'The resource you requested could not be found.'</p>} */}
+
       <Suspense fallback={<Loader />}>
         <Outlet />
       </Suspense>

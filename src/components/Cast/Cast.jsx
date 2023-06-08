@@ -21,11 +21,7 @@ const Cast = () => {
             <img
               width={50}
               src=
-              // {
-              //   castList.profile_path &&
-              //   (`https://image.tmdb.org/t/p/w200${castList.profile_path}`)
-               
-              // }
+
               {
                 castList.profile_path ? 
                 (`https://image.tmdb.org/t/p/w200${castList.profile_path}`)

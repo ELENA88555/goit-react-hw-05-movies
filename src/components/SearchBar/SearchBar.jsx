@@ -1,5 +1,4 @@
-// import { useState } from 'react';
-// import { useSearchParams } from 'react-router-dom';
+
 import { ButtonSubmit, FormSearch, Input } from './SearchBar.styled';
 import { useState } from 'react';
 
